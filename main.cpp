@@ -8,7 +8,7 @@ using namespace std;
 template<typename Containter>
 void fillRandom(Containter &cont, int n) {
     for (int i = 0, r; i < n; i++) {
-        r = rand() % 21 - 10;
+        r = rand();
         cont.insert(cont.end(), r);
     }
 }
@@ -16,7 +16,7 @@ void fillRandom(Containter &cont, int n) {
 template<class Elem_first, class Elem_second>
 void fillRandom(map<Elem_first, Elem_second> &cont, int n) {
     for (int i = 0, r; i < n; i++) {
-        r = rand() % 21 - 10;
+        r = rand();
         auto p = make_pair(r, r);
         cont.insert(cont.end(), p);
     }
@@ -39,7 +39,7 @@ void show(map<Elem_first, Elem_second> &cont) {
 }
 
 int main() {
-    int n = 100;
+    int n = 15;
 
     long long start_time_vec = clock();
     cout << "vector : ";
@@ -74,19 +74,37 @@ int main() {
     long long end_time_list = clock();
 
 
-/*
-    cout << "multmap";
-    multiset<int> ms;
-    fillRandom(ms, n);
-    show(ms);
+    long long start_time_ms = clock();
+    cout << "multsrt : ";
+    multiset<int> ms1;
+    fillRandom(ms1, n);
+    show(ms1);
+    multiset<int> ms2;
+    fillRandom(ms2, n);
+    show(ms2);
+    for (auto i = ms2.begin(); i != ms2.end(); ++i)
+        ms1.insert(*i);
+    show(ms1);
+    long long end_time_ms = clock();
 
 
-    cout << "map";
-    map<int, int> m;
-    fillRandom(m, n);
-    show(m);
-*/
+    long long start_time_map = clock();
+    cout << "map : ";
+    map<int, int> m1;
+    fillRandom(m1, n);
+    show(m1);
+    map<int, int> m2;
+    fillRandom(m2, n);
+    show(m2);
+    for (auto i = m2.begin(); i != m2.end(); ++i)
+        m1.insert(*i);
+    show(m1);
+    long long end_time_map = clock();
+
+
     cout << "vector : " << end_time_vec - start_time_vec << '\n';
     cout << "list : " << end_time_list - start_time_list << '\n';
+    cout << "multiset : " << end_time_ms - start_time_ms << '\n';
+    cout << "map : " << end_time_map - start_time_map << '\n';
     return 0;
 }
