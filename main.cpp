@@ -57,13 +57,24 @@ int main() {
     show(v1);
     long long end_time_vec = clock();
 
+    long long start_time_list = clock();
+    cout << "list : ";
+    list<int> l1;
+    fillRandom(l1, n);
+    l1.sort();
+    show(l1);
+    list<int> l2;
+    fillRandom(l2, n);
+    l2.sort();
+    show(l2);
+    for (auto i = l2.begin(); i != l2.end(); ++i)
+        l1.push_back(*i);
+    l1.sort();
+    show(l1);
+    long long end_time_list = clock();
+
+
 /*
-    cout << "list";
-    list<int> l;
-    fillRandom(l, n);
-    show(l);
-
-
     cout << "multmap";
     multiset<int> ms;
     fillRandom(ms, n);
@@ -75,6 +86,7 @@ int main() {
     fillRandom(m, n);
     show(m);
 */
-    cout << end_time_vec - start_time_vec;
+    cout << "vector : " << end_time_vec - start_time_vec << '\n';
+    cout << "list : " << end_time_list - start_time_list << '\n';
     return 0;
 }
